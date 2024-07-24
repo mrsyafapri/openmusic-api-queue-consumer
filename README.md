@@ -4,6 +4,8 @@
 
 - [Node.js](https://nodejs.org/) (v12 or higher recommended)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
+- [PostgreSQL](https://www.postgresql.org/) (v12 or higher recommended)
+- [RabbitMQ](https://www.rabbitmq.com/)
 
 ## Installation
 
@@ -26,13 +28,11 @@
 
 ## Running the Application
 
-1. Start the application:
-   ```bash
-   npm start
-   ```
-2. Access the application:
+Start the application:
 
-   Open your browser and go to http://localhost:5000
+```bash
+npm start
+```
 
 ## Configuration
 
