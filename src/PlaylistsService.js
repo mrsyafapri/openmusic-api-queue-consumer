@@ -30,28 +30,21 @@ class PlaylistsService {
 
     const result = await this._pool.query(query);
 
-    // Format hasil query ke struktur JSON yang diinginkan
-    const playlistsMap = result.rows.reduce((acc, row) => {
-      if (!acc[row.playlist_id]) {
-        acc[row.playlist_id] = {
-          id: row.playlist_id,
-          name: row.playlist_name,
-          songs: [],
-        };
-      }
+    if (result.rowCount === 0) {
+      throw new Error('Playlist not found');
+    }
 
-      if (row.song_id) {
-        acc[row.playlist_id].songs.push({
-          id: row.song_id,
-          title: row.song_title,
-          performer: row.song_performer,
-        });
-      }
+    const playlist = {
+      id: result.rows[0].playlist_id,
+      name: result.rows[0].playlist_name,
+      songs: result.rows.map((row) => ({
+        id: row.song_id,
+        title: row.song_title,
+        performer: row.song_performer,
+      })),
+    };
 
-      return acc;
-    }, {});
-
-    return Object.values(playlistsMap);
+    return { playlist };
   }
 }
 

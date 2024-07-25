@@ -11,18 +11,9 @@ class Listener {
 
       const playlists = await this._playlistsService.getPlaylists(userId);
 
-      // Format hasil ke dalam bentuk yang sesuai
-      const formattedPlaylists = {
-        playlists: playlists.map((playlist) => ({
-          id: playlist.id,
-          name: playlist.name,
-          songs: playlist.songs,
-        })),
-      };
-
       const result = await this._mailSender.sendEmail(
         targetEmail,
-        JSON.stringify(formattedPlaylists),
+        JSON.stringify(playlists),
       );
       console.log('Email sent:', result);
     } catch (error) {
